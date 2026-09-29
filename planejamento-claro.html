@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falta de Planejamento Claro - Ana Luiza Santini</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="container">
+        <a href="index.html" class="back-btn">&larr; Voltar para o Painel Principal</a>
+
+        <header class="header">
+            <span class="badge">Análise Aprofundada</span>
+            <h1>Falta de <span class="highlight">Planejamento Claro</span></h1>
+            <p>Elimine o tempo perdido no início do dia estruturando um sistema de priorização à prova de falhas.</p>
+        </header>
+
+        <article class="article-content">
+            <h2>1. O Custo da Indecisão</h2>
+            <p>Iniciar o dia sem ter um plano pré-definido faz você gastar a parte mais valiosa do seu foco matinal decidindo o que fazer. Isso gera um desperdício de energia cognitiva antes mesmo de qualquer tarefa importante ser concluída.</p>
+            
+            <div class="topic-figure">
+                <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="400" height="200" rx="8" fill="#1e293b"/>
+                    <line x1="200" y1="20" x2="200" y2="180" stroke="#334155" stroke-width="2"/>
+                    <line x1="20" y1="100" x2="380" y2="100" stroke="#334155" stroke-width="2"/>
+                    
+                    <text x="110" y="60" fill="#818cf8" font-size="12" text-anchor="middle" font-weight="bold">Fazer Agora (Urgente/Importante)</text>
+                    <text x="290" y="60" fill="#f8fafc" font-size="12" text-anchor="middle">Agendar (Importante/Não Urgente)</text>
+                    <text x="110" y="140" fill="#94a3b8" font-size="12" text-anchor="middle">Delegar (Urgente/Não Importante)</text>
+                    <text x="290" y="140" fill="#ef4444" font-size="12" text-anchor="middle">Eliminar (Não Urgente/Não Importante)</text>
+                </svg>
+                <div class="figcaption">Figura 4: Matriz de Eisenhower aplicada à priorização de estudos e trabalho.</div>
+            </div>
+
+            <h2>2. Metodologia de Organização Eficiente</h2>
+            <ul>
+                <li><strong>Matriz de Prioridade:</strong> Categorize as demandas em Urgentes vs Importantes para saber exatamente onde investir seu tempo.</li>
+                <li><strong>Planejamento do Dia Anterior:</strong> Reserve os últimos 10 minutos do seu expediente para montar a lista exata de afazeres do dia seguinte.</li>
+                <li><strong>Listas Claras e Acessíveis:</strong> Mantenha um checklist visual dos tópicos de estudo já dominados para acompanhar a evolução contínua.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <p><strong>Princípio Prático:</strong> Se uma tarefa levar menos de 2 minutos para ser feita, faça-a imediatamente em vez de anotá-la em uma lista.</p>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Organizador de Rotinas | Ana Luiza Santini. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles;
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 70; i++) {
+                particles.push({x: Math.random() * width, y: Math.random() * height, z: Math.random() * width, size: Math.random() * 2 + 1});
+            }
+        }
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            let cx = width / 2, cy = height / 2;
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.z -= 0.8;
+                if (p.z <= 0) { p.z = width; p.x = Math.random() * width; p.y = Math.random() * height; }
+                let k = 252 / p.z;
+                let px = (p.x - cx) * k + cx, py = (p.y - cy) * k + cy;
+                if (px >= 0 && px <= width && py >= 0 && py <= height) {
+                    ctx.beginPath();
+                    ctx.arc(px, py, p.size * k, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(99, 102, 241, ${(1 - p.z / width)})`;
+                    ctx.fill();
+                }
+            }
+            requestAnimationFrame(drawParticles);
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); drawParticles();
+    </script>
+</body>
+</html>

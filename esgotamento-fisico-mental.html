@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esgotamento Físico e Mental - Ana Luiza Santini</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="container">
+        <a href="index.html" class="back-btn">&larr; Voltar para o Painel Principal</a>
+
+        <header class="header">
+            <span class="badge">Análise Aprofundada</span>
+            <h1>Esgotamento <span class="highlight">Físico e Mental</span></h1>
+            <p>Previna a síndrome do esgotamento (Burnout) e construa uma rotina sustentável de alto rendimento.</p>
+        </header>
+
+        <article class="article-content">
+            <h2>1. O Limite Biológico da Produtividade</h2>
+            <p>Exigir alto rendimento constante sem períodos estruturados de regeneração causa fadiga cognitiva prolongada. O acúmulo de privação de sono e a falta de atividade física reduzem diretamente a plasticidade cerebral, tornando a retenção de matérias e o aprendizado extremamente difíceis.</p>
+            
+            <div class="topic-figure">
+                <svg width="400" height="160" viewBox="0 0 400 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="400" height="160" rx="8" fill="#1e293b"/>
+                    <rect x="40" y="50" width="320" height="24" rx="12" fill="#334155"/>
+                    <rect x="40" y="50" width="80" height="24" rx="12" fill="#ef4444"/>
+                    <text x="200" y="110" fill="#f8fafc" font-size="12" text-anchor="middle">Nível de Energia Vital: 25% (Crítico)</text>
+                    <text x="40" y="35" fill="#ef4444" font-size="11">Cansaço Severo</text>
+                    <text x="360" y="35" fill="#10b981" font-size="11" text-anchor="end">Recuperado</text>
+                </svg>
+                <div class="figcaption">Figura 3: Nível reservatório de bateria biológica e impacto do esgotamento.</div>
+            </div>
+
+            <h2>2. Protocolos de Recuperação Essenciais</h2>
+            <ul>
+                <li><strong>Higiene do Sono Rigorosa:</strong> Estabeleça um horário fixo para se deitar e evite telas digitais pelo menos 45 minutos antes de ir dormir.</li>
+                <li><strong>Descanso Ativo x Descanso Passivo:</strong> Rolar feeds de redes sociais não é descansar a mente. Prefira caminhadas leves, meditação ou simplesmente ficar sem estímulos visuais.</li>
+                <li><strong>Pausas Obrigatórias Durante o Expediente:</strong> Levante-se a cada 90 minutos para tomar água e alongar o corpo, permitindo o relaxamento muscular.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <p><strong>Lembre-se:</strong> O descanso não é o prêmio pelo trabalho concluído, mas o combustível necessário para produzir com excelência no dia seguinte.</p>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Organizador de Rotinas | Ana Luiza Santini. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles;
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 70; i++) {
+                particles.push({x: Math.random() * width, y: Math.random() * height, z: Math.random() * width, size: Math.random() * 2 + 1});
+            }
+        }
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            let cx = width / 2, cy = height / 2;
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.z -= 0.8;
+                if (p.z <= 0) { p.z = width; p.x = Math.random() * width; p.y = Math.random() * height; }
+                let k = 252 / p.z;
+                let px = (p.x - cx) * k + cx, py = (p.y - cy) * k + cy;
+                if (px >= 0 && px <= width && py >= 0 && py <= height) {
+                    ctx.beginPath();
+                    ctx.arc(px, py, p.size * k, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(99, 102, 241, ${(1 - p.z / width)})`;
+                    ctx.fill();
+                }
+            }
+            requestAnimationFrame(drawParticles);
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); drawParticles();
+    </script>
+</body>
+</html>

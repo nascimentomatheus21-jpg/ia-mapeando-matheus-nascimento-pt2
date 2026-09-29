@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efeito Sobrecarga Diária - Ana Luiza Santini</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="container">
+        <a href="index.html" class="back-btn">&larr; Voltar para o Painel Principal</a>
+
+        <header class="header">
+            <span class="badge">Análise Aprofundada</span>
+            <h1>Efeito <span class="highlight">"Sobrecarga Diária"</span></h1>
+            <p>Compreenda a ciência por trás da sensação de acúmulo de tarefas e aplique métodos definitivos de organização.</p>
+        </header>
+
+        <article class="article-content">
+            <h2>1. Entendendo a Carga Cognitiva</h2>
+            <p>O Efeito Sobrecarga Diária surge quando a quantidade de informação e de responsabilidades que recebemos excede a capacidade de processamento do nosso cérebro. Ao tentar gerenciar prazos profissionais exigentes simultaneamente às leituras e trabalhos acadêmicos, entramos em um estado contínuo de vigilância e ansiedade.</p>
+            
+            <div class="topic-figure">
+                <svg width="400" height="180" viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="400" height="180" rx="8" fill="#1e293b"/>
+                    <path d="M50 140 C 120 140, 150 40, 200 40 C 250 40, 280 140, 350 140" stroke="#818cf8" stroke-width="4" fill="none"/>
+                    <circle cx="200" cy="40" r="8" fill="#6366f1"/>
+                    <text x="200" y="25" fill="#f8fafc" font-size="12" text-anchor="middle" font-weight="bold">Ponto de Estresse Extremo</text>
+                    <text x="70" y="160" fill="#94a3b8" font-size="11">Carga de Trabalho Normal</text>
+                    <text x="330" y="160" fill="#94a3b8" font-size="11" text-anchor="end">Esgotamento / Bloqueio</text>
+                </svg>
+                <div class="figcaption">Figura 1: Curva de capacidade cognitiva e ponto de sobrecarga sob pressão contínua.</div>
+            </div>
+
+            <h2>2. Sintomas do Problema na Rotina</h2>
+            <p>Quando a sobrecarga não é tratada, ela se manifesta através dos seguintes gargalos diários:</p>
+            <ul>
+                <li><strong>Sensação de urgência constante:</strong> Qualquer nova notificação ou e-mail transmite a ideia de crise imediata.</li>
+                <li><strong>Paralisia por análise:</strong> Diante de tantas matérias acumuladas, a mente fica sem saber por onde começar e paralisa.</li>
+                <li><strong>Multitarefa ineficiente:</strong> A tentativa de estudar ouvindo uma aula enquanto responde a mensagens de trabalho, reduzindo a retenção a quase zero.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <p><strong>Aviso Importante:</strong> O cérebro humano não foi feito para executar tarefas complexas em paralelo. A alternância constante de contexto consome até 40% da sua energia mental produtiva.</p>
+            </div>
+
+            <h2>3. Plano de Ação Prático: O Sistema de Recuperação</h2>
+            <ol>
+                <li><strong>Aplicação do Timeblocking Estruturado:</strong> Divida o seu dia em blocos dedicados exclusivamente a uma função (ex: 08:00 às 12:00 Trabalho Focado; 18:30 às 20:00 Estudo Acadêmico). Nada deve invadir o bloco alheio.</li>
+                <li><strong>A Regra das 3 Vitórias Diárias:</strong> Defina no máximo 3 tarefas cruciais que tornarão seu dia bem-sucedido. Conclua-as antes de focar em demandas secundárias.</li>
+                <li><strong>Descarregamento Mental Noturno:</strong> Escreva em um papel todas as pendências antes de encerrar o dia. Retirar as tarefas da cabeça diminui drasticamente a ansiedade.</li>
+            </ol>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Organizador de Rotinas | Ana Luiza Santini. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles;
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 70; i++) {
+                particles.push({x: Math.random() * width, y: Math.random() * height, z: Math.random() * width, size: Math.random() * 2 + 1});
+            }
+        }
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            let cx = width / 2, cy = height / 2;
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.z -= 0.8;
+                if (p.z <= 0) { p.z = width; p.x = Math.random() * width; p.y = Math.random() * height; }
+                let k = 252 / p.z;
+                let px = (p.x - cx) * k + cx, py = (p.y - cy) * k + cy;
+                if (px >= 0 && px <= width && py >= 0 && py <= height) {
+                    ctx.beginPath();
+                    ctx.arc(px, py, p.size * k, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(99, 102, 241, ${(1 - p.z / width)})`;
+                    ctx.fill();
+                }
+            }
+            requestAnimationFrame(drawParticles);
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); drawParticles();
+    </script>
+</body>
+</html>

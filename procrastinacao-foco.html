@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procrastinação & Falta de Foco - Ana Luiza Santini</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="container">
+        <a href="index.html" class="back-btn">&larr; Voltar para o Painel Principal</a>
+
+        <header class="header">
+            <span class="badge">Análise Aprofundada</span>
+            <h1>Procrastinação & <span class="highlight">Falta de Foco</span></h1>
+            <p>Descubra a mecânica emocional do adiamento de tarefas e recupere o controle da sua atenção.</p>
+        </header>
+
+        <article class="article-content">
+            <h2>1. A Ciência da Procrastinação</h2>
+            <p>A procrastinação não é preguiça ou falta de gestão de tempo, mas sim uma forma inadequada de lidar com emoções negativas ligadas a uma tarefa — como o medo do fracasso, o tédio ou a ansiedade por algo complexo. O cérebro opta pelo alívio imediato da dopamina rápida oferecida pelas redes sociais e notificações.</p>
+            
+            <div class="topic-figure">
+                <svg width="420" height="180" viewBox="0 0 420 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="420" height="180" rx="8" fill="#1e293b"/>
+                    <rect x="30" y="70" width="100" height="40" rx="6" fill="#334155" stroke="#6366f1"/>
+                    <text x="80" y="94" fill="#f8fafc" font-size="11" text-anchor="middle">Tarefa Difícil</text>
+                    
+                    <path d="M140 90 L180 90" stroke="#818cf8" stroke-width="2" stroke-dasharray="4 4"/>
+                    
+                    <rect x="190" y="40" width="100" height="40" rx="6" fill="#334155" stroke="#ef4444"/>
+                    <text x="240" y="64" fill="#f8fafc" font-size="11" text-anchor="middle">Ansiedade</text>
+                    
+                    <rect x="190" y="100" width="100" height="40" rx="6" fill="#334155" stroke="#10b981"/>
+                    <text x="240" y="124" fill="#f8fafc" font-size="11" text-anchor="middle">Fuga / Celular</text>
+                    
+                    <path d="M300 120 L330 120 C350 120 350 60 300 60" stroke="#ef4444" stroke-width="2" fill="none"/>
+                    <text x="350" y="94" fill="#94a3b8" font-size="10">Ciclo da Culpa</text>
+                </svg>
+                <div class="figcaption">Figura 2: O ciclo neuroemocional da procrastinação e fuga para distrações.</div>
+            </div>
+
+            <h2>2. Estratégias Avançadas para Manter o Foco</h2>
+            <p>Para romper a tentação das distrações, é fundamental aplicar barreiras de fricção contra o mau hábito:</p>
+            <ul>
+                <li><strong>Técnica Pomodoro Modificada:</strong> Faça blocos de 45 minutos de estudo seguidos por 15 minutos de descanso completo.</li>
+                <li><strong>Regra dos 5 Minutos:</strong> Mantenha a meta de trabalhar em uma tarefa chata por apenas 5 minutos. Uma vez vencida a resistência inicial, a tendência natural é continuar.</li>
+                <li><strong>Isolamento de Estímulos:</strong> Deixe o celular em outro cômodo ou utilize extensões que bloqueiem sites de entretenimento no horário de estudo.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <p><strong>Dica de Produtividade:</strong> O foco é um músculo. Não tente estudar 4 horas seguidas no primeiro dia. Treine sessões menores e aumente progressivamente.</p>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Organizador de Rotinas | Ana Luiza Santini. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles;
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 70; i++) {
+                particles.push({x: Math.random() * width, y: Math.random() * height, z: Math.random() * width, size: Math.random() * 2 + 1});
+            }
+        }
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            let cx = width / 2, cy = height / 2;
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.z -= 0.8;
+                if (p.z <= 0) { p.z = width; p.x = Math.random() * width; p.y = Math.random() * height; }
+                let k = 252 / p.z;
+                let px = (p.x - cx) * k + cx, py = (p.y - cy) * k + cy;
+                if (px >= 0 && px <= width && py >= 0 && py <= height) {
+                    ctx.beginPath();
+                    ctx.arc(px, py, p.size * k, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(99, 102, 241, ${(1 - p.z / width)})`;
+                    ctx.fill();
+                }
+            }
+            requestAnimationFrame(drawParticles);
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); drawParticles();
+    </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizador de Rotinas de Estudos e Trabalho - Ana Luiza Santini</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="container">
+        <header class="header">
+            <span class="badge">Gestão de Tempo & Produtividade</span>
+            <h1>Organizador de Rotinas de Estudos e Trabalho do <span class="highlight">(Ana Luiza Santini)</span></h1>
+            <p>Identifique os principais gargalos e insatisfações da sua rotina diária e aprenda estratégias práticas para superá-los.</p>
+        </header>
+
+        <main class="grid-cards">
+            <!-- Card 1 -->
+            <a href="sobrecarga-diaria.html" style="text-decoration: none;">
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Efeito "Sobrecarga Diária"</h3>
+                    <p>Sensação constante de estar atolado entre entregas do trabalho e matérias acumuladas.</p>
+                    <span class="card-link">Ver detalhes e soluções &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card 2 -->
+            <a href="procrastinacao-foco.html" style="text-decoration: none;">
+                <div class="card">
+                    <div class="card-icon">🌀</div>
+                    <h3>Procrastinação & Falta de Foco</h3>
+                    <p>Dificuldade para iniciar tarefas difíceis e distrações frequentes com celular e redes.</p>
+                    <span class="card-link">Ver detalhes e soluções &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card 3 -->
+            <a href="esgotamento-fisico-mental.html" style="text-decoration: none;">
+                <div class="card">
+                    <div class="card-icon">🔋</div>
+                    <h3>Esgotamento Físico e Mental</h3>
+                    <p>Muitas horas de dedicação sem pausas adequadas levando ao cansaço extremo e baixa retenção.</p>
+                    <span class="card-link">Ver detalhes e soluções &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card 4 -->
+            <a href="planejamento-claro.html" style="text-decoration: none;">
+                <div class="card">
+                    <div class="card-icon">📅</div>
+                    <h3>Falta de Planejamento Claro</h3>
+                    <p>Não saber por onde começar o dia e perder tempo decidindo qual tarefa priorizar.</p>
+                    <span class="card-link">Ver detalhes e soluções &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card 5 -->
+            <a href="conflito-horarios.html" style="text-decoration: none;">
+                <div class="card">
+                    <div class="card-icon">⏳</div>
+                    <h3>Conflito de Horários Trabalho x Estudo</h3>
+                    <p>Imprevistos no expediente roubando as horas reservadas para a faculdade ou cursos.</p>
+                    <span class="card-link">Ver detalhes e soluções &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Card 6 -->
+            <a href="sensacao-estagnacao.html" style="text-decoration: none;">
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Sensação de Estagnação</h3>
+                    <p>Trabalhar e estudar muito durante o dia, mas sentir que não avançou nos objetivos reais.</p>
+                    <span class="card-link">Ver detalhes e soluções &rarr;</span>
+                </div>
+            </a>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Organizador de Rotinas | Ana Luiza Santini. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles;
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 70; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    z: Math.random() * width,
+                    size: Math.random() * 2 + 1,
+                    color: '#6366f1'
+                });
+            }
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            let cx = width / 2;
+            let cy = height / 2;
+
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.z -= 0.8;
+                if (p.z <= 0) {
+                    p.z = width;
+                    p.x = Math.random() * width;
+                    p.y = Math.random() * height;
+                }
+                let k = 252 / p.z;
+                let px = (p.x - cx) * k + cx;
+                let py = (p.y - cy) * k + cy;
+
+                if (px >= 0 && px <= width && py >= 0 && py <= height) {
+                    let alpha = (1 - p.z / width);
+                    ctx.beginPath();
+                    ctx.arc(px, py, p.size * k, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(99, 102, 241, ${alpha})`;
+                    ctx.fill();
+                }
+            }
+            requestAnimationFrame(drawParticles);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        drawParticles();
+    </script>
+</body>
+</html>
